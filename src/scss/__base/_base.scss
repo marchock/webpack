@@ -1,0 +1,44 @@
+/**
+ * This is for the remaining base/globally applied styles that cannot be defined in the other Base folder stylesheets (e.g. colours, fonts etc.)
+ *
+ *
+ * ## Usage
+ * Import into your main file using
+ *
+ * @example
+ *     @import "__base/base";
+ *
+ */
+
+
+.new-color {
+	color: red;
+}
+
+/**
+ * Custom Resets
+ */
+ p, pre, blockquote, a, ul, ol, li, h1, h2, h3, h4, h5, h6, figure {
+    margin:0;
+    padding:0;
+}
+
+/**
+ * Responsive images
+ */
+
+img {
+    max-width: 100%; // Overide with width: 100% on case by case basis to allow images to fill their container
+    height: auto;
+    display:block;
+}
+
+/**
+* Fix the box sizing
+*/
+
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+}

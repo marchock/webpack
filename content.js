@@ -1,1 +1,0 @@
-module.exports = "This is been updated dynamically.js";

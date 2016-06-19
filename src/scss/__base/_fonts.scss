@@ -1,0 +1,74 @@
+/**
+ *
+ * Here we define the font styles
+ *
+ * ## Usage
+ * Import into your main file using
+ *
+ * @example
+ *     @import "__base/_fonts.scss";
+ *
+ */
+
+$font-helvetica: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
+
+/**
+ * The globally used html styles are declared here
+ */
+html {
+	font-size: 62.5%;
+	-webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body {
+    font-family: $font-helvetica;
+}
+
+/**
+ * h1 styles
+ */
+h1 {
+	@include font(50, 60, $font-helvetica);
+}
+
+h2 {
+    @include font(30, 34, $font-helvetica);
+}
+h3 {
+    @include font(26, 30, $font-helvetica);
+}
+
+p,
+li {
+	@include font(16, 22);
+}
+
+a {
+	text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+// Better font rendering
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li,
+a,
+span,
+input,
+label,
+time,
+button,
+address {
+    @include anti-alias-text;
+    font-weight: 300;
+}
