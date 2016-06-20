@@ -1,5 +1,5 @@
 
-require("!style!css!sass!./scss/styles.scss");
+require('./scss/styles.scss');
 //require("!modernizr!./.modernizrrc");
 // require('./js/lib/modernizr.js');
 // require("jquery");

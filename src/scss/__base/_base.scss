@@ -10,11 +10,6 @@
  *
  */
 
-
-.new-color {
-	color: red;
-}
-
 /**
  * Custom Resets
  */
@@ -41,4 +36,9 @@ img {
 *:after,
 *:before {
     box-sizing: border-box;
+}
+
+
+:root {
+  --mainColor: red;
 }

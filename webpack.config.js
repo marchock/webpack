@@ -1,20 +1,28 @@
-var webpack = require('webpack');
+var webpack = require('webpack'),
+    path = require("path"),
+    autoprefixer = require('autoprefixer'),
+    mqpacker = require('css-mqpacker'),
+    ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: {
-        app: "./src/entry.js",
+        main: "./src/entry.js",
         vendor: ["jquery", "moment"],
+        home: "./src/module/pages/page-home/entry.js"
     },
     output: {
         path: __dirname + "/dist",
-        filename: "bundle.js"
+        filename: "[name].js",
+        //chunkFilename: "[id].js"
     },
     module: {
         loaders: [
-            {// SASS
+            {// SASS -- note: sass-loader 3.2.0 not working
                 test: /\.scss$/,
-                loaders: ['style', 'css', 'sass'],
-                include: './src/scss/**/*.scss'
+
+                //loaders: ['style', 'css', 'postcss', 'sass']// loaders when using an array
+
+                loader: ExtractTextPlugin.extract("style-loader", "css?minimize!postcss!sass") // extract css and create file
             },
             {// BABEL
                 test: /\.js$/,
@@ -23,17 +31,24 @@ module.exports = {
                 query: {
                     presets: ['es2015']
                 }
-            },
-            {//Modernizr
-                test: /[\\\/]bower_components[\\\/]modernizr[\\\/]modernizr\.js$/,
-                loader: "imports?this=>window!exports?window.Modernizr"
             }
         ]
     },
+
+    postcss: function () {
+        return [mqpacker, autoprefixer]; //https://github.com/postcss/postcss
+        //return [mqpacker, require("postcss-cssnext")()]; TODO: 
+    },
+
     plugins: [
-        new webpack.ProvidePlugin({$: "jquery", jQuery: "jquery"}),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery"
+        }),
         // new webpack.ProvidePlugin({moment: "moment"}),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
-        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
+        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
+        new ExtractTextPlugin('[name].css')
     ]
 };
