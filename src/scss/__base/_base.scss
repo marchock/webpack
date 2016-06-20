@@ -39,6 +39,10 @@ img {
 }
 
 
-:root {
-  --mainColor: red;
-}
+
+    .new-color {
+        color: $color-blue;
+        transform: translate(50px, 100px);
+        display: flex;
+        font-size: 20px;
+    }

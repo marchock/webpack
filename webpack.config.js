@@ -5,14 +5,24 @@ var webpack = require('webpack'),
     ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-    entry: {
+    devtool: 'eval',
+    entry: 
+
+    {
         main: "./src/entry.js",
         vendor: ["jquery", "moment"],
         home: "./src/module/pages/page-home/entry.js"
     },
+    // [
+    //     'webpack-dev-server/client?http://localhost:8080',
+    //     'webpack/hot/only-dev-server',
+    //     './src/entry'
+    // ],
+
     output: {
         path: __dirname + "/dist",
         filename: "[name].js",
+        publicPath: __dirname + "/dist"
         //chunkFilename: "[id].js"
     },
     module: {
@@ -21,8 +31,8 @@ module.exports = {
                 test: /\.scss$/,
 
                 //loaders: ['style', 'css', 'postcss', 'sass']// loaders when using an array
-
-                loader: ExtractTextPlugin.extract("style-loader", "css?minimize!postcss!sass") // extract css and create file
+                // minify: replace css with css?minimize
+                loader: ExtractTextPlugin.extract("style-loader", "css!postcss!sass") // extract css and create file
             },
             {// BABEL
                 test: /\.js$/,
@@ -41,6 +51,10 @@ module.exports = {
     },
 
     plugins: [
+
+        //new webpack.HotModuleReplacementPlugin(),
+        //new webpack.NoErrorsPlugin(),
+
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
@@ -50,5 +64,6 @@ module.exports = {
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
         new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
         new ExtractTextPlugin('[name].css')
-    ]
+    ],
+    debug: true
 };
