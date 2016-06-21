@@ -5,17 +5,19 @@ var webpack = require('webpack'),
     stylelint = require('stylelint'),
     stylelintConfigStandard = require('stylelint-config-standard'),
     reporter = require("postcss-reporter"),
-    ExtractTextPlugin = require("extract-text-webpack-plugin");
+    ExtractTextPlugin = require("extract-text-webpack-plugin"),
+    LiveReloadPlugin = require('webpack-livereload-plugin');
 
 module.exports = {
     devtool: 'eval',
-    entry: 
-
-    {
+    entry: {
         main: "./src/entry.js",
         vendor: ["jquery", "moment"],
         home: "./src/module/pages/page-home/entry.js"
     },
+
+
+
     // [
     //     'webpack-dev-server/client?http://localhost:8080',
     //     'webpack/hot/only-dev-server',
@@ -72,7 +74,11 @@ module.exports = {
         }),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
         new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
-        new ExtractTextPlugin('[name].css')
+        new ExtractTextPlugin('[name].css'),
+        new LiveReloadPlugin()// this works with watch "webpack --progress --colors --watch"
     ],
     debug: true
 };
+
+
+

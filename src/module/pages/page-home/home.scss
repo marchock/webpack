@@ -5,48 +5,12 @@
 @import "../../../scss/__base/colours";
 
 
-
-a {
-  color: var(--mainColor);
-}
-
 .page-home {
-
-
-     
-    body {
-      color: yellow;
-    }
-     
-    @media (min-width: 100px) {
-      body {
-        color: green;
-      }
-    }
-     
-    @media (min-width: 100px) {
-      body {
-        color: red;
-      }
-    }
-     
-    @media (max-width: 300px) {
-      body {
-        color: orange;
-      }
-    }
-     
-    @media (min-width: 100px) {
-      body {
-        color: purple;
-      }
-    }
-
 
     .new-color {
         color: $color-blue;
         transform: translate(50px, 100px);
-        display: flex;
-        font-size: 20px;
+        display: inline-block;
+        font-size: 30px;
     }
 }

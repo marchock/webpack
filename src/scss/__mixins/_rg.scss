@@ -100,7 +100,7 @@
                     .#{$column-class} {
                         float: right;
                     }
-                }  
+                }
 
                 // Align Center
                 &.a-c {
@@ -121,7 +121,7 @@
                         vertical-align: top;
                     }
                 }
-              
+
 
                 @each $bp in $breakpoint {
                     $breakpoint-name:  nth($bp, 1);
@@ -131,7 +131,7 @@
                     @include mq($from: $breakpoint-name) {
 
                         @include rg-calcResponsiveColumns($column-class, $marginWidth, $breakpoint-column);
-                    
+
                     }
                 }
             }
