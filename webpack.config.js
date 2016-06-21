@@ -8,6 +8,8 @@ var webpack = require('webpack'),
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
     LiveReloadPlugin = require('webpack-livereload-plugin');
 
+
+
 module.exports = {
     devtool: 'eval',
     entry: {
@@ -16,19 +18,10 @@ module.exports = {
         home: "./src/module/pages/page-home/entry.js"
     },
 
-
-
-    // [
-    //     'webpack-dev-server/client?http://localhost:8080',
-    //     'webpack/hot/only-dev-server',
-    //     './src/entry'
-    // ],
-
     output: {
         path: __dirname + "/dist",
         filename: "[name].js",
         publicPath: __dirname + "/dist"
-        //chunkFilename: "[id].js"
     },
     module: {
 
@@ -53,12 +46,12 @@ module.exports = {
 
     postcss: function () {
         return [
-            stylelint(stylelintConfigStandard),
+            //stylelint(stylelintConfigStandard),
             reporter({ clearMessages: true }),
             mqpacker,
             autoprefixer
         ]; //https://github.com/postcss/postcss
-        //return [mqpacker, require("postcss-cssnext")()]; TODO: 
+        //return [mqpacker, require("postcss-cssnext")()]; TODO:
     },
 
 
@@ -76,6 +69,7 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
         new ExtractTextPlugin('[name].css'),
         new LiveReloadPlugin()// this works with watch "webpack --progress --colors --watch"
+
     ],
     debug: true
 };
