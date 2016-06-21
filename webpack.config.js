@@ -67,8 +67,14 @@ module.exports = {
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
         new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
         new ExtractTextPlugin('[name].css'),
-        new LiveReloadPlugin()// this works with watch "webpack --progress --colors --watch"
+        new LiveReloadPlugin(),// this works with watch "webpack --progress --colors --watch"
 
+        // UGLIFY JS
+        //https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
+        // new webpack.optimize.UglifyJsPlugin({
+        //     sourceMap: false,
+        //     mangle: false
+        // })
     ],
     debug: true
 };
