@@ -55,7 +55,6 @@ module.exports = {
             reporter({ clearMessages: true }),
             mqpacker,
             autoprefixer
-
         ]; //https://github.com/postcss/postcss
         //return [mqpacker, require("postcss-cssnext")()]; TODO: 
     },
@@ -71,7 +70,6 @@ module.exports = {
             jQuery: "jquery",
             "window.jQuery": "jquery"
         }),
-        // new webpack.ProvidePlugin({moment: "moment"}),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
         new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
         new ExtractTextPlugin('[name].css')
