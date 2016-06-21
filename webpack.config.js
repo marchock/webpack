@@ -2,6 +2,9 @@ var webpack = require('webpack'),
     path = require("path"),
     autoprefixer = require('autoprefixer'),
     mqpacker = require('css-mqpacker'),
+    stylelint = require('stylelint'),
+    stylelintConfigStandard = require('stylelint-config-standard'),
+    reporter = require("postcss-reporter"),
     ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
@@ -26,13 +29,14 @@ module.exports = {
         //chunkFilename: "[id].js"
     },
     module: {
+
         loaders: [
             {// SASS -- note: sass-loader 3.2.0 not working
                 test: /\.scss$/,
 
                 //loaders: ['style', 'css', 'postcss', 'sass']// loaders when using an array
                 // minify: replace css with css?minimize
-                loader: ExtractTextPlugin.extract("style-loader", "css!postcss!sass") // extract css and create file
+                loader: ExtractTextPlugin.extract("style-loader", "css!postcss!sass?sourceMap") // extract css and create file
             },
             {// BABEL
                 test: /\.js$/,
@@ -46,9 +50,16 @@ module.exports = {
     },
 
     postcss: function () {
-        return [mqpacker, autoprefixer]; //https://github.com/postcss/postcss
+        return [
+            stylelint(stylelintConfigStandard),
+            reporter({ clearMessages: true }),
+            mqpacker,
+            autoprefixer
+
+        ]; //https://github.com/postcss/postcss
         //return [mqpacker, require("postcss-cssnext")()]; TODO: 
     },
+
 
     plugins: [
 
