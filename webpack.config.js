@@ -11,7 +11,6 @@ var webpack = require('webpack'),
 
 
 module.exports = {
-    devtool: 'eval',
     entry: {
         main: "./src/entry.js",
         vendor: ["jquery", "moment"],
