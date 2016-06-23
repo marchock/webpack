@@ -6,20 +6,22 @@ var webpack = require('webpack'),
     stylelintConfigStandard = require('stylelint-config-standard'),
     reporter = require("postcss-reporter"),
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
-    LiveReloadPlugin = require('webpack-livereload-plugin');
+    LiveReloadPlugin = require('webpack-livereload-plugin'),
+    HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 
 module.exports = {
     entry: {
-        main: "./src/entry.js",
+        //main: "./src/entry.js",
         vendor: ["jquery", "moment"],
-        home: "./src/module/pages/page-home/entry.js"
+        home: "./src/module/pages/page-home/home.js",
+        about: "./src/module/pages/page-about/about.js"
     },
 
     output: {
         path: __dirname + "/dist",
-        filename: "[name].js",
+        filename: "js/[name].js",
         publicPath: __dirname + "/dist"
     },
     module: {
@@ -65,8 +67,8 @@ module.exports = {
             "window.jQuery": "jquery"
         }),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
-        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
-        new ExtractTextPlugin('[name].css'),
+        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"js/vendor.bundle.js"),
+        new ExtractTextPlugin('css/[name].css'),
         new LiveReloadPlugin(),// this works with watch "webpack --progress --colors --watch"
 
         // UGLIFY JS
@@ -75,6 +77,19 @@ module.exports = {
         //     sourceMap: false,
         //     mangle: false
         // })
+
+
+        //new HtmlWebpackPlugin(), // Generates default index.html
+        new HtmlWebpackPlugin({  // Also generate a home.html
+          filename: 'home.html',
+          template: 'src/module/pages/page-home/home.html',
+          excludeChunks: ['about']
+        }),
+        new HtmlWebpackPlugin({  // Also generate a about.html
+          filename: 'about.html',
+          template: 'src/module/pages/page-about/about.html',
+          excludeChunks: ['home']
+        })
     ],
     debug: true
 };

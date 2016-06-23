@@ -1,5 +1,7 @@
 # Webpack
 
+// do not install webpack globally
+
 
 npm install
 
