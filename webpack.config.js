@@ -7,22 +7,22 @@ var webpack = require('webpack'),
     reporter = require("postcss-reporter"),
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
     LiveReloadPlugin = require('webpack-livereload-plugin'),
-    HtmlWebpackPlugin = require('html-webpack-plugin');
-
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 
 module.exports = {
     entry: {
         //main: "./src/entry.js",
         vendor: ["jquery", "moment"],
-        home: "./src/module/pages/page-home/home.js",
+        home: "./src/module/pages/page-home/home.jsx",
         about: "./src/module/pages/page-about/about.js"
     },
 
     output: {
-        path: __dirname + "/dist",
-        filename: "js/[name].js",
-        publicPath: __dirname + "/dist"
+        path: "dist",
+        filename: "js/[name].jsx",
+        publicPath: "/"
     },
     module: {
 
@@ -34,12 +34,25 @@ module.exports = {
                 // minify: replace css with css?minimize
                 loader: ExtractTextPlugin.extract("style-loader", "css!postcss!sass?sourceMap") // extract css and create file
             },
-            {// BABEL
-                test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
-                loader: 'babel', // 'babel-loader' is also a legal name to reference
+
+            {
+                test: /\.html$/,
+                loader: "html"
+            },
+            // {// BABEL
+            //     test: /\.js$/,
+            //     exclude: /(node_modules|bower_components)/,
+            //     loader: 'babel', // 'babel-loader' is also a legal name to reference
+            //     query: {
+            //         presets: ['es2015', 'react']
+            //     }
+            // },
+            {// BABEL REACT
+                test: /.jsx?$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
                 query: {
-                    presets: ['es2015']
+                    presets: ['es2015', 'react']
                 }
             }
         ]
@@ -89,6 +102,14 @@ module.exports = {
           filename: 'about.html',
           template: 'src/module/pages/page-about/about.html',
           excludeChunks: ['home']
+        }),
+
+        new BrowserSyncPlugin({
+            // browse to http://localhost:3000/ during development, 
+            // ./public directory is being served 
+            host: 'localhost',
+            port: 3000,
+            server: { baseDir: ['dist'] }
         })
     ],
     debug: true
